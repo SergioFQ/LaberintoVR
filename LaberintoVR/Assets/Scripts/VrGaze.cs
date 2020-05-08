@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class VrGaze : MonoBehaviour
 {
-    [SerializeField] private Image imgGaze
+    [SerializeField] private Image imgGaze;
     // Start is called before the first frame update
     void Start()
     {
