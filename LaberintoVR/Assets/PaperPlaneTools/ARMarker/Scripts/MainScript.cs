@@ -156,7 +156,7 @@ namespace PaperPlaneTools.AR {
 			}
 
 			//Create objects for markers not matched with any game object
-			foreach (int markerIndex in foundedMarkers) {
+			foreach (int markerIndex in foundedMarkers) {                
 				GameObject gameObject = Instantiate(markerObject.markerPrefab);
 				MarkerOnScene markerOnScene = new MarkerOnScene() {
 					gameObject = gameObject
@@ -176,6 +176,7 @@ namespace PaperPlaneTools.AR {
 			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
 			gameObject.transform.localRotation = MatrixHelper.GetQuaternion (matrix);
 			gameObject.transform.localScale = MatrixHelper.GetScale (matrix);
+            gameObject.transform.Rotate(0f, 180f, 0f);
 		}
 	}
 }
