@@ -80,6 +80,7 @@ namespace PaperPlaneTools.AR {
             var img = Unity.TextureToMat(texture, Unity.TextureConversionParams.Default);
             ProcessFrame(img, img.Cols, img.Rows);
             output = Unity.MatToTexture(img, output);
+            Destroy(texture);
             return true;
         }
 
