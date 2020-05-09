@@ -9,12 +9,15 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private int distanceOfRay = 10;
     [SerializeField] private Canvas UI;
     [SerializeField] private Camera UICamera;
+    [SerializeField] private EquationController EquController;
+
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
     private string tagAnterior = "";
     private string tagActual = "";
+
     
     void Update()
     {
@@ -43,6 +46,10 @@ public class vrSelection : MonoBehaviour
                         teleport(_hit.point);
                         imgGaze.fillAmount = 0;
                         gvrTimer = 0;
+                        break;
+
+                    case "equation":
+                        EquController.imprimirNumero(_hit.transform.name);
                         break;
                 }
             }
