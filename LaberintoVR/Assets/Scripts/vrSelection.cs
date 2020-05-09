@@ -11,7 +11,6 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private Camera UICamera;
     [SerializeField] private SimonDiceController SDController;
     [SerializeField] private NPuzzleController NPController;
-
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
