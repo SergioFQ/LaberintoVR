@@ -30,6 +30,7 @@ public class SimonDiceController : MonoBehaviour
                     {
                         setTexto("Mensaje_Secuencia", "");
                         setTexto("Nivel", "¡Prueba Superada!");
+                        GameObject.Find("StartSimonDice").tag = "Untagged";
                     }
                     else
                     {
