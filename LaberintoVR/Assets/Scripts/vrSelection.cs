@@ -10,7 +10,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private Canvas UI;
     [SerializeField] private Camera UICamera;
     [SerializeField] private SimonDiceController SDController;
-
+    [SerializeField] private NPuzzleController NPController;
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
@@ -20,7 +20,6 @@ public class vrSelection : MonoBehaviour
     void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
 
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged") && !SDController.secuenciaActiva)
         {
@@ -59,9 +58,19 @@ public class vrSelection : MonoBehaviour
                         SDController.iniciarSimonDice();
                         gvrOff();
                         break;
-                    case "menuAruco":
-                        Debug.Log("QUE ME COMAS LOS HUEVOS DAN,PRIMER Y ULTIMO AVISO. calçots");
+
+                    case "ResetNPuzzle":
+                        if (!NPController.juegoTerminado()) {
+                            gvrOff();
+                            NPController.resetear();
+                        }
                         break;
+                    case "NPuzzle":
+                        if (!NPController.juegoTerminado() && NPController.piezaMovible(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false)) {
+                            gvrOff();
+                            NPController.moverPieza(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false);
+                        }
+
                 }
             }
             if(tagAnterior!=tagActual) 
