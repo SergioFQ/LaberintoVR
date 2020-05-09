@@ -9,6 +9,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private int distanceOfRay = 10;
     [SerializeField] private Canvas UI;
     [SerializeField] private Camera UICamera;
+    [SerializeField] private SimonDiceController SDController;
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
@@ -37,12 +38,25 @@ public class vrSelection : MonoBehaviour
             }
             if (imgGaze.fillAmount == 1 && Physics.Raycast(ray, out _hit, distanceOfRay))
             {
+                if (!SDController.secuenciaActiva)
+                    tagActual = "Untagged";
                 switch (_hit.transform.tag)
                 {
                     case "teleport":
                         teleport(_hit.point);
                         imgGaze.fillAmount = 0;
                         gvrTimer = 0;
+                        break;
+                    case "SimonDice":
+                        teleport(_hit.transform.position);
+                        break;
+                    case "CuboSimonDice":
+                        SDController.cambiarColor(_hit.transform.name);
+                        gvrOff();
+                        break;
+                    case "StartSimonDice":
+                        SDController.iniciarSimonDice();
+                        gvrOff();
                         break;
                 }
             }
