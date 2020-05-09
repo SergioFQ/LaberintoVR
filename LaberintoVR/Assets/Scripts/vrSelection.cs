@@ -65,11 +65,13 @@ public class vrSelection : MonoBehaviour
                             NPController.resetear();
                         }
                         break;
+
                     case "NPuzzle":
                         if (!NPController.juegoTerminado() && NPController.piezaMovible(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false)) {
                             gvrOff();
                             NPController.moverPieza(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false);
                         }
+                        break;
 
                 }
             }
