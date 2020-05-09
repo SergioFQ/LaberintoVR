@@ -5,21 +5,30 @@ using UnityEngine;
 public class Pause : MonoBehaviour
 {
     public GameObject posMenu;
-    public GameObject muro;
+    public GameObject sala;
+    public GameObject player;
 
+    private Vector3 prePlayerPos;
     // Start is called before the first frame update
     void Start()
     {
-        muro.active = false;
+        sala.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKey("up")) {
-            this.transform.position = new Vector3(posMenu.transform.position.x, posMenu.transform.position.y, posMenu.transform.position.z);
-            muro.active = true;
+        if (Input.GetKeyUp("up")) {
+            prePlayerPos = player.transform.position;
+            player.transform.position = new Vector3(posMenu.transform.position.x, posMenu.transform.position.y, posMenu.transform.position.z);
+            sala.SetActive(true);
+        }
+
+        if (Input.GetKeyUp("down"))
+        {
+            player.transform.position = prePlayerPos;
+            sala.SetActive(false);
         }
     }
 }
