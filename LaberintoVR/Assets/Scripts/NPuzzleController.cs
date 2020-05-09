@@ -14,11 +14,9 @@ public class NPuzzleController : MonoBehaviour
     private GameObject[,] piezas;
     private Text[,] textos;
     private bool completo = false;
-    // Start is called before the first frame update
     void Start()
     {
         //inicializar las piezas
-        //nPuzzle = new int[3, 3];
         piezas = new GameObject[3, 3];
         textos = new Text[3,3];
 
@@ -42,35 +40,20 @@ public class NPuzzleController : MonoBehaviour
         textos[1,2] = texto8;
         textos[2,2] = texto9;
 
-        //List<int> listaRandom = new List<int>();
-        //while (esCompleto() || !esSolucionable()) {
-            nPuzzle = new int[3, 3];
-            //listaRandom.Clear();
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    nPuzzle[i,j] = int.Parse(textos[i,j].text);
-                    //listaRandom.Add(i+j*3);
-                }
+        nPuzzle = new int[3, 3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                nPuzzle[i,j] = int.Parse(textos[i,j].text);
             }
-            /*for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    int indice = Random.Range(0,listaRandom.Count);
-                    nPuzzle[i,j] = listaRandom[indice];
-                    listaRandom.RemoveAt(indice);
-                }
-            }*/
-        //}
-        nPuzzleGenerado = (int[,])nPuzzle.Clone();
-        //Cambiar eso
-        //Hacer que empiece resuelto y moverlo aleatoriamente 12 veces
+        }
+
+        //Hacer que empiece resuelto y moverlo aleatoriamente 10 veces
         int movimientos = 0;
         int ultimaPieza = -1;
         while (movimientos < 10) {
             int x = Random.Range(0,3);
             int y = Random.Range(0,3);
-            //Debug.Log("probamos con la pieza " + x + ", " + y);
             if (piezaMovible(x,y,true)) {
-                //Debug.Log("esto se puede mover");
                 if (ultimaPieza != -1) {
                     if (ultimaPieza != nPuzzle[x,y]) {
                         ultimaPieza = nPuzzle[x,y];
@@ -86,13 +69,13 @@ public class NPuzzleController : MonoBehaviour
                 }
             }
         }
+        nPuzzleGenerado = (int[,])nPuzzle.Clone();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!juegoTerminado()) {
-            //Pintar numericos
+            //Pintar numeros
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (piezaMovible(i,j,true)) {
@@ -125,7 +108,6 @@ public class NPuzzleController : MonoBehaviour
 
     bool esCompleto() {
         if (nPuzzle == null) {
-            //Debug.Log("jaja no");
             return true;
         }
         if ((nPuzzle[0,0] == 1) && (nPuzzle[1,0] == 2) && (nPuzzle[2,0] == 3) && (nPuzzle[0,1] == 8) && (nPuzzle[1,1] == 0) && (nPuzzle[2,1] == 4) && (nPuzzle[0,2] == 7) && (nPuzzle[1,2] == 6) && (nPuzzle[2,2] == 5)) {
@@ -133,13 +115,6 @@ public class NPuzzleController : MonoBehaviour
         } else {
             return false;
         }
-        /*if (nPuzzle[0,0] == 1 && nPuzzle[1,0] == 2 && nPuzzle[1,0] == 3 && nPuzzle[0,1] == 8 && nPuzzle[1,1] == 0 && nPuzzle[2,1] == 4 && nPuzzle[0,2] == 7 && nPuzzle[1,2] == 6 && nPuzzle[2,2] == 5) {
-            //Debug.Log("buena");
-            return true;
-        } else {
-            //Debug.Log("será que no");
-            return false;
-        }*/
     }
 
     int numInversiones(int[,] nPuzzle) { 
@@ -166,8 +141,6 @@ public class NPuzzleController : MonoBehaviour
             x = (int)inX;
             y = (int)inY;
         } else {
-            //Debug.Log("estamos dentro");
-            //Debug.Log(inY);
             switch (inX) {
                 case -0.3f:
                 x = 0;
@@ -186,23 +159,11 @@ public class NPuzzleController : MonoBehaviour
             } else {
                 y = 2;
             }
-            /*switch (inY) {
-                case 0.38f:
-                y = 0;
-                break;
-                case 0.14f:
-                y = 1;
-                break;
-                case -0.1f:
-                y = 2;
-                break;
-            }*/
-            //Debug.Log("comprobando ("+x+","+y+"): ("+inX+"/"+inY+") (" + inY + "==0.38f) " + (inY.Equals(0.38f)) + "(" + inY + "==0.14f) " + (inY.Equals(0.14f)) + "(" + inY + "==-0.1f) " + (inY.Equals(-0.1f)));
             if (x == -1 || y == -1) {
                 return false;
             }
-        }//if (!directo) Debug.Log("comprobando ("+x+","+y+"): ("+inX+","+inY+")");
-        //Debug.Log("comprobando ("+x+","+y+")");
+        }
+
         if (x > 0) {
             if (nPuzzle[x-1,y] == 0) {
                 return true;
@@ -223,7 +184,6 @@ public class NPuzzleController : MonoBehaviour
                 return true;
             }
         }
-        //Debug.Log("pues nada oye");
         return false;
     }
 
@@ -251,7 +211,6 @@ public class NPuzzleController : MonoBehaviour
             } else {
                 y = 2;
             }
-            //Debug.Log("comprobando ("+x+","+y+"): ("+inX+","+inY+")");
             if (x == -1 || y == -1) {
                 return;
             }
