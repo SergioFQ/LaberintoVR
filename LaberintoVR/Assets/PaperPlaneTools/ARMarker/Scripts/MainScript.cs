@@ -9,6 +9,10 @@ namespace PaperPlaneTools.AR {
 	using UnityEngine.UI;
 	
 	public class MainScript: WebCamera {
+        //CODIGO SERGIO
+        public GameObject posObject;
+        public GameObject cameraPlayer;
+        //CODIGO SERGIO
 		[Serializable]
 		public class MarkerObject
 		{
@@ -173,10 +177,11 @@ namespace PaperPlaneTools.AR {
 			Matrix4x4 matrixZ = Matrix4x4.TRS (Vector3.zero, Quaternion.identity, new Vector3 (1, 1, -1));
 			Matrix4x4 matrix = matrixY * transformMatrix * matrixZ;
 
-			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
-			gameObject.transform.localRotation = MatrixHelper.GetQuaternion (matrix);
-			gameObject.transform.localScale = MatrixHelper.GetScale (matrix);
-            gameObject.transform.Rotate(0f, 180f, 0f);
+            //gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
+            //gameObject.transform.localRotation = MatrixHelper.GetQuaternion (matrix);
+            //gameObject.transform.localScale = MatrixHelper.GetScale (matrix);
+            gameObject.transform.LookAt(cameraPlayer.transform);
+            gameObject.transform.position = new Vector3(posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x, posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
 		}
 	}
 }
