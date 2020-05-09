@@ -21,7 +21,6 @@ public class vrSelection : MonoBehaviour
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        
 
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged") && !SDController.secuenciaActiva)
         {
@@ -59,6 +58,9 @@ public class vrSelection : MonoBehaviour
                     case "StartSimonDice":
                         SDController.iniciarSimonDice();
                         gvrOff();
+                        break;
+                    case "menuAruco":
+                        Debug.Log("QUE ME COMAS LOS HUEVOS DAN,PRIMER Y ULTIMO AVISO. calçots");
                         break;
                 }
             }
