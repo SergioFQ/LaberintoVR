@@ -21,7 +21,6 @@ public class vrSelection : MonoBehaviour
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged") && !SDController.secuenciaActiva)
         {
             UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
@@ -59,6 +58,7 @@ public class vrSelection : MonoBehaviour
                         SDController.iniciarSimonDice();
                         gvrOff();
                         break;
+
                     case "ResetNPuzzle":
                         if (!NPController.juegoTerminado()) {
                             gvrOff();
@@ -70,7 +70,7 @@ public class vrSelection : MonoBehaviour
                             gvrOff();
                             NPController.moverPieza(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false);
                         }
-                        break;
+
                 }
             }
             if(tagAnterior!=tagActual) 
