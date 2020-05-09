@@ -20,7 +20,10 @@ public class vrSelection : MonoBehaviour
     void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged"))
+
+        
+
+        if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged") && !SDController.secuenciaActiva)
         {
             UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
             tagActual = _hit.transform.tag;
@@ -38,8 +41,6 @@ public class vrSelection : MonoBehaviour
             }
             if (imgGaze.fillAmount == 1 && Physics.Raycast(ray, out _hit, distanceOfRay))
             {
-                if (!SDController.secuenciaActiva)
-                    tagActual = "Untagged";
                 switch (_hit.transform.tag)
                 {
                     case "teleport":
@@ -51,7 +52,8 @@ public class vrSelection : MonoBehaviour
                         teleport(_hit.transform.position);
                         break;
                     case "CuboSimonDice":
-                        SDController.cambiarColor(_hit.transform.name);
+                        if (SDController.esperandoInput)
+                            SDController.añadirASecuencia(_hit.transform.name);
                         gvrOff();
                         break;
                     case "StartSimonDice":

@@ -1,13 +1,88 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SimonDiceController : MonoBehaviour
 {
     private IEnumerator coroutine;
-    private List<string> colores = new List<string> { "CuboAmarillo", "CuboAzul", "CuboVerde", "CuboRojo"};
-    private List<int> secuencia = new List<int> { };
+    private List<string> colores = new List<string> { "CuboAmarillo", "CuboAzul", "CuboVerde", "CuboRojo" };
+    private List<int> secuenciaCreada = new List<int> { };
+    private List<int> secuenciaInput = new List<int> { };
+    private bool secuenciaFallada = false;
+    private int numeroPrueba = 0;
+
     public bool secuenciaActiva = false;
+    public bool esperandoInput = false;
+
+    private void Update()
+    {
+        if (esperandoInput)
+        {
+            if (secuenciaCreada.Count == secuenciaInput.Count)
+            {
+                esperandoInput = false;
+                cambiarTagsCubos("Untagged");
+                GameObject.Find("StartSimonDice").tag = "StartSimonDice";
+                if (!secuenciaFallada)
+                {
+                    numeroPrueba++;
+                    if (numeroPrueba >= 3)
+                    {
+                        setTexto("Mensaje_Secuencia", "");
+                        setTexto("Nivel", "¡Prueba Superada!");
+                    }
+                    else
+                    {
+                        setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
+                        setTexto("Mensaje_Secuencia", "¡Secuencia correcta!");
+                    }
+                        
+                }
+                else
+                {
+                    numeroPrueba = 0;
+                    setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
+                    setTexto("Mensaje_Secuencia", "¡Secuencia incorrecta!");
+                }
+
+            }
+            else
+            {
+                if (secuenciaFallada)
+                {
+                    esperandoInput = false;
+                    cambiarTagsCubos("Untagged");
+                    GameObject.Find("StartSimonDice").tag = "StartSimonDice";
+                    numeroPrueba = 0;
+                    setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
+                    setTexto("Mensaje_Secuencia","¡Secuencia incorrecta!");
+                }
+            }
+        }
+    }
+
+    private void setTexto(string nombre, string texto)
+    {
+        GameObject.Find(nombre).GetComponent<Text>().text = texto;
+    }
+
+    public void añadirASecuencia(string nombre)
+    {
+        secuenciaInput.Add(colores.IndexOf(nombre));
+        comprobarSecuencia();
+        cambiarColor(nombre);
+    }
+
+    private void comprobarSecuencia()
+    {
+        for (int i = 0; i < secuenciaInput.Count; i++)
+        {
+            if (secuenciaInput[i] != secuenciaCreada[i])
+            {
+                secuenciaFallada = true;
+            }
+        }
+    }
 
     public void cambiarColor(string nombre)
     {
@@ -19,23 +94,51 @@ public class SimonDiceController : MonoBehaviour
 
     public void iniciarSimonDice()
     {
-        for (int i = 0; i < 5; i++)
-            secuencia.Add(Random.Range(0, 4));
+        if (numeroPrueba == 0)
+        {
+            setTexto("Nivel", ("Secuencias superadas: " + numeroPrueba.ToString() + "/3"));
+        }
+        if (numeroPrueba < 3)
+        {
+            setTexto("Mensaje_Secuencia", "Nivel "+(numeroPrueba+1).ToString());
+            secuenciaFallada = false;
+            GameObject.Find("StartSimonDice").tag = "Untagged";
+            cambiarTagsCubos("CuboSimonDice");
+            secuenciaActiva = true;
+            secuenciaInput.Clear();
+            secuenciaCreada.Clear();
+            for (int i = 0; i < 5; i++)
+                secuenciaCreada.Add(Random.Range(0, 4));
 
-        StartCoroutine(empezarSecuencia());
+            StartCoroutine(empezarSecuencia());
+        }
+        else
+        {
+            setTexto("Mensaje_Secuencia", "");
+            setTexto("Nivel", "¡Prueba Superada!");
+        }
+
+    }
+
+    private void cambiarTagsCubos(string tag)
+    {
+        for (int i = 0; i < colores.Count; i++)
+        {
+            GameObject.Find(colores[i]).tag = tag;
+        }
     }
 
     private IEnumerator empezarSecuencia()
     {
         yield return new WaitForSeconds(2.0f);
-        for (int i = 0; i < secuencia.Count; i++)
+        for (int i = 0; i < secuenciaCreada.Count; i++)
         {
-            Debug.Log("Numero en secuencia: "+i);
-            string color = colores[secuencia[i]];
+            string color = colores[secuenciaCreada[i]];
             cambiarColor(color);
             yield return new WaitForSeconds(1.5f);
         }
-        secuencia.Clear();
+        secuenciaActiva = false;
+        esperandoInput = true;
     }
 
     private IEnumerator iluminar(Color color, GameObject cubo, float time)
