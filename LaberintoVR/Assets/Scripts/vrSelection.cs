@@ -7,6 +7,8 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private Image imgGaze;
     [SerializeField] private float totalTime = 2.0f;
     [SerializeField] private int distanceOfRay = 10;
+    [SerializeField] private Canvas UI;
+    [SerializeField] private Camera UICamera;
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
@@ -19,6 +21,7 @@ public class vrSelection : MonoBehaviour
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged"))
         {
+            UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
             tagActual = _hit.transform.tag;
             if (tagAnterior != tagActual)
             {
@@ -48,6 +51,7 @@ public class vrSelection : MonoBehaviour
         }
         else
         {
+            UI.planeDistance = distanceOfRay;
             gvrOff();
             tagAnterior = "";
         }
