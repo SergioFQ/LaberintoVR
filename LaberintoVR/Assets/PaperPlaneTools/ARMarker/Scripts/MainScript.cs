@@ -180,8 +180,15 @@ namespace PaperPlaneTools.AR {
             //gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
             //gameObject.transform.localRotation = MatrixHelper.GetQuaternion (matrix);
             //gameObject.transform.localScale = MatrixHelper.GetScale (matrix);
+
+            //escalamos debido a que el modelo es excesivamente grande
+            gameObject.transform.localScale = new Vector3 (0.0005f,0.0005f,0.0005f);
+            //Mita a camra
             gameObject.transform.LookAt(cameraPlayer.transform);
-            gameObject.transform.position = new Vector3(posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x, posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
+            //Rotamos para que este recto del todo
+            gameObject.transform.Rotate(-gameObject.transform.rotation.x + 90f, 0f, 0f);
+            //Tenemos en cuenta las coordenadas dadas en el trackeo y le sumamos la de un objeto invisible enfrente de la camara para que se mueva con la camara y no se quede en el origen
+            gameObject.transform.position = new Vector3((posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x) - 0.055f, (posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y) - 0.4f, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
 		}
 	}
 }
