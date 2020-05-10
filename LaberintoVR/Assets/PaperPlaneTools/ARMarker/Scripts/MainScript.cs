@@ -163,6 +163,8 @@ namespace PaperPlaneTools.AR {
 			//Create objects for markers not matched with any game object
 			foreach (int markerIndex in foundedMarkers) {                
 				GameObject gameObject = Instantiate(markerObject.markerPrefab);
+				gameObject.transform.parent = cameraPlayer.transform;
+				gameObject.transform.position = Vector3.zero;
 				MarkerOnScene markerOnScene = new MarkerOnScene() {
 					gameObject = gameObject
 				};
@@ -187,9 +189,12 @@ namespace PaperPlaneTools.AR {
             //Mita a camra
             gameObject.transform.LookAt(cameraPlayer.transform);
             //Rotamos para que este recto del todo
-            gameObject.transform.Rotate(-gameObject.transform.rotation.x + 90f, 0f, 0f);
+            //gameObject.transform.Rotate(-gameObject.transform.rotation.x + 90f, 0f, 0f);
+            gameObject.transform.Rotate(-MatrixHelper.GetQuaternion(matrix).eulerAngles.x,MatrixHelper.GetQuaternion (matrix).eulerAngles.y,MatrixHelper.GetQuaternion (matrix).eulerAngles.z);
+			gameObject.transform.Rotate(90f, 0f, 0f);
             //Tenemos en cuenta las coordenadas dadas en el trackeo y le sumamos la de un objeto invisible enfrente de la camara para que se mueva con la camara y no se quede en el origen
-            gameObject.transform.position = new Vector3((posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x) - 0.055f, (posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y) - 0.4f, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
+            //gameObject.transform.position = new Vector3((posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x) - 0.055f, (posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y) - 0.4f, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
+			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
 		}
 	}
 }
