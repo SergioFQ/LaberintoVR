@@ -14,6 +14,8 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private NPuzzleController NPController;
     [SerializeField] private EquationController EquController;
     [SerializeField] private ControladorFade FadeController;
+    [SerializeField] private AudioClip _boton_Clip;
+
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
@@ -94,10 +96,14 @@ public class vrSelection : MonoBehaviour
 
                     case "ButtonContinue":
                         Debug.Log("Continuar");
+                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
+                        _hit.transform.GetComponent<AudioSource>().Play();
                         pauseMenu.resumeGame();
                         gvrOff();
                         break;
                     case "ButtonRestart":
+                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
+                        _hit.transform.GetComponent<AudioSource>().Play();
                         Debug.Log("Reiniciar");
                         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                         if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
@@ -105,9 +111,13 @@ public class vrSelection : MonoBehaviour
                         gvrOff();
                         break;
                     case "ButtonVolume":
+                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
+                        _hit.transform.GetComponent<AudioSource>().Play();
                         Debug.Log("Volumen");
                         break;
                     case "ButtonExit":
+                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
+                        _hit.transform.GetComponent<AudioSource>().Play();
                         Debug.Log("Salir juego");
                         //Application.Quit();
                         if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
@@ -115,6 +125,8 @@ public class vrSelection : MonoBehaviour
                         gvrOff();
                         break;
                     case "ButtonBegin":
+                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
+                        _hit.transform.GetComponent<AudioSource>().Play();
                         Debug.Log("Empezar");
                         //SceneManager.LoadScene("mapScene");
                         FadeController.toScene("mapScene");
