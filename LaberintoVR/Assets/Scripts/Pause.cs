@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PaperPlaneTools.AR;//para referenciar el script Main de Aruco
 
 public class Pause : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Pause : MonoBehaviour
     public GameObject sala;
     public GameObject player;
     public GameObject MainAruco;
+    public MainScript arucoScript;
 
     private Vector3 prePlayerPos;
     // Start is called before the first frame update
@@ -46,6 +48,7 @@ public class Pause : MonoBehaviour
         prePlayerPos = player.transform.position;
         player.transform.position = new Vector3(posMenu.transform.position.x, posMenu.transform.position.y, posMenu.transform.position.z);
         sala.SetActive(true);
+        arucoScript.destroyObject();
         MainAruco.SetActive(false);
     }
 
