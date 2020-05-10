@@ -27,6 +27,7 @@ public class vrSelection : MonoBehaviour
 
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged") && !SDController.secuenciaActiva)
         {
+            Debug.Log(_hit.transform.name);
             UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
             tagActual = _hit.transform.tag;
             if (tagAnterior != tagActual)
