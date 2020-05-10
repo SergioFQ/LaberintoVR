@@ -11,12 +11,13 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private Camera UICamera;
     [SerializeField] private SimonDiceController SDController;
     [SerializeField] private NPuzzleController NPController;
+    [SerializeField] private EquationController EquController;
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
     private string tagAnterior = "";
     private string tagActual = "";
-    
+
     void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -60,22 +61,34 @@ public class vrSelection : MonoBehaviour
                         break;
 
                     case "ResetNPuzzle":
-                        if (!NPController.juegoTerminado()) {
+                        if (!NPController.juegoTerminado())
+                        {
                             gvrOff();
                             NPController.resetear();
                         }
                         break;
 
                     case "NPuzzle":
-                        if (!NPController.juegoTerminado() && NPController.piezaMovible(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false)) {
+                        if (!NPController.juegoTerminado() && NPController.piezaMovible(_hit.transform.localPosition.x, _hit.transform.localPosition.y, false))
+                        {
                             gvrOff();
-                            NPController.moverPieza(_hit.transform.localPosition.x,_hit.transform.localPosition.y, false);
+                            NPController.moverPieza(_hit.transform.localPosition.x, _hit.transform.localPosition.y, false);
                         }
                         break;
-
+                    case "equation":
+                        if (!EquController.equationSolved)
+                        {
+                            EquController.selectNum(_hit.transform.name);
+                            gvrOff();
+                        }
+                        break;
+                    case "selectEquation":
+                        EquController.selectEquation();
+                        gvrOff();
+                        break;
                 }
             }
-            if(tagAnterior!=tagActual) 
+            if (tagAnterior != tagActual)
                 tagAnterior = tagActual;
         }
         else
@@ -84,7 +97,7 @@ public class vrSelection : MonoBehaviour
             gvrOff();
             tagAnterior = "";
         }
-        
+
     }
 
     private void teleport(Vector3 position)
