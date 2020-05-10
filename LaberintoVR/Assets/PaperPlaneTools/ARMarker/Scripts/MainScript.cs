@@ -197,7 +197,7 @@ namespace PaperPlaneTools.AR {
             //Tenemos en cuenta las coordenadas dadas en el trackeo y le sumamos la de un objeto invisible enfrente de la camara para que se mueva con la camara y no se quede en el origen
             //gameObject.transform.position = new Vector3((posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x) - 0.055f, (posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y) - 0.4f, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
 			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
-            gameObject.transform.Translate(new Vector3 (0f,0f,-dist));
+            gameObject.transform.Translate(new Vector3 (0f,-dist,0f));
 		}
 
         public void destroyObject()
