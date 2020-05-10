@@ -113,6 +113,7 @@ public class vrSelection : MonoBehaviour
                     case "ButtonVolume":
                         _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
                         _hit.transform.GetComponent<AudioSource>().Play();
+                        AudioListener.volume = 0;
                         Debug.Log("Volumen");
                         gvrOff();
                         break;
