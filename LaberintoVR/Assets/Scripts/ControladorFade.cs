@@ -14,6 +14,7 @@ public class ControladorFade : MonoBehaviour
 
     public void onFadeComplete() {
         if (scene == "SALIR") {
+            //SceneManager.LoadScene("MainMenu");
             Application.Quit();
         } else {
             SceneManager.LoadScene(scene);

@@ -100,6 +100,7 @@ public class vrSelection : MonoBehaviour
                     case "ButtonRestart":
                         Debug.Log("Reiniciar");
                         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
                         FadeController.toScene(SceneManager.GetActiveScene().name);
                         gvrOff();
                         break;
@@ -109,6 +110,7 @@ public class vrSelection : MonoBehaviour
                     case "ButtonExit":
                         Debug.Log("Salir juego");
                         //Application.Quit();
+                        if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
                         FadeController.toScene("SALIR");
                         gvrOff();
                         break;
