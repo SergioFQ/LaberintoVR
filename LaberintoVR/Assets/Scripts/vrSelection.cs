@@ -117,6 +117,10 @@ public class vrSelection : MonoBehaviour
                         FadeController.toScene("mapScene");
                         gvrOff();
                         break;
+                    case "Libro":
+                        pauseMenu.pauseGame();
+                        gvrOff();
+                        break;
 
                 }
             }
