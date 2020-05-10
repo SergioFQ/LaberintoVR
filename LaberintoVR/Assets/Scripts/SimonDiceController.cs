@@ -21,6 +21,7 @@ public class SimonDiceController : MonoBehaviour
     [SerializeField] private AudioClip _wrongSimon;
     public bool secuenciaActiva = false;
     public bool esperandoInput = false;
+    public bool win = false;
 
     private void Update()
     {
@@ -149,6 +150,7 @@ public class SimonDiceController : MonoBehaviour
         {
             setTexto("Mensaje_Secuencia", "");
             setTexto("Nivel", "¡Prueba Superada!");
+            win = true;
         }
 
     }

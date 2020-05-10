@@ -10,8 +10,10 @@ namespace PaperPlaneTools.AR {
 	
 	public class MainScript: WebCamera {
         //CODIGO SERGIO
-        public GameObject posObject;
+        //public GameObject posObject;
         public GameObject cameraPlayer;
+        private GameObject objeto;
+        public float dist;//cuanto queremos que se acerque el objeto (no excederse con los valores)
         //CODIGO SERGIO
 		[Serializable]
 		public class MarkerObject
@@ -162,11 +164,11 @@ namespace PaperPlaneTools.AR {
 
 			//Create objects for markers not matched with any game object
 			foreach (int markerIndex in foundedMarkers) {                
-				GameObject gameObject = Instantiate(markerObject.markerPrefab);
-				gameObject.transform.parent = cameraPlayer.transform;
-				gameObject.transform.position = Vector3.zero;
+				objeto = Instantiate(markerObject.markerPrefab);
+				objeto.transform.parent = cameraPlayer.transform;
+				objeto.transform.position = Vector3.zero;
 				MarkerOnScene markerOnScene = new MarkerOnScene() {
-					gameObject = gameObject
+					gameObject = objeto
 				};
 				gameObjects.Add(markerOnScene);
 
@@ -195,6 +197,13 @@ namespace PaperPlaneTools.AR {
             //Tenemos en cuenta las coordenadas dadas en el trackeo y le sumamos la de un objeto invisible enfrente de la camara para que se mueva con la camara y no se quede en el origen
             //gameObject.transform.position = new Vector3((posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x) - 0.055f, (posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y) - 0.4f, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
 			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
+            gameObject.transform.Translate(new Vector3 (0f,dist,0f));
 		}
+
+        public void destroyObject()
+        {
+            Destroy(objeto);
+
+        }
 	}
 }
