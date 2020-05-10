@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class vrSelection : MonoBehaviour
 {
     [SerializeField] private Image imgGaze;
@@ -18,6 +19,7 @@ public class vrSelection : MonoBehaviour
     private string tagAnterior = "";
     private string tagActual = "";
 
+    public Pause pauseMenu;
     void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -75,6 +77,7 @@ public class vrSelection : MonoBehaviour
                             NPController.moverPieza(_hit.transform.localPosition.x, _hit.transform.localPosition.y, false);
                         }
                         break;
+
                     case "equation":
                         if (!EquController.equationSolved)
                         {
@@ -86,6 +89,26 @@ public class vrSelection : MonoBehaviour
                         EquController.selectEquation();
                         gvrOff();
                         break;
+
+                    case "ButtonContinue":
+                        Debug.Log("Continuar");
+                        pauseMenu.resumeGame();
+                        gvrOff();
+                        break;
+                    case "ButtonRestart":
+                        Debug.Log("Reiniciar");
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        gvrOff();
+                        break;
+                    case "ButtonVolume":
+                        Debug.Log("Volumen");
+                        break;
+                    case "ButtonExit":
+                        Debug.Log("Salir juego");
+                        Application.Quit();
+                        gvrOff();
+                        break;
+
                 }
             }
             if (tagAnterior != tagActual)
