@@ -13,6 +13,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private SimonDiceController SDController;
     [SerializeField] private NPuzzleController NPController;
     [SerializeField] private EquationController EquController;
+    [SerializeField] private ControladorFade FadeController;
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
@@ -97,7 +98,8 @@ public class vrSelection : MonoBehaviour
                         break;
                     case "ButtonRestart":
                         Debug.Log("Reiniciar");
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        FadeController.toScene(SceneManager.GetActiveScene().name);
                         gvrOff();
                         break;
                     case "ButtonVolume":
@@ -105,7 +107,14 @@ public class vrSelection : MonoBehaviour
                         break;
                     case "ButtonExit":
                         Debug.Log("Salir juego");
-                        Application.Quit();
+                        //Application.Quit();
+                        FadeController.toScene("SALIR");
+                        gvrOff();
+                        break;
+                    case "ButtonBegin":
+                        Debug.Log("Empezar");
+                        //SceneManager.LoadScene("mapScene");
+                        FadeController.toScene("mapScene");
                         gvrOff();
                         break;
 
