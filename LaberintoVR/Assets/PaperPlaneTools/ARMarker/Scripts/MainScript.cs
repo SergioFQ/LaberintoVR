@@ -12,6 +12,7 @@ namespace PaperPlaneTools.AR {
         //CODIGO SERGIO
         public GameObject posObject;
         public GameObject cameraPlayer;
+        private GameObject objeto;
         //CODIGO SERGIO
 		[Serializable]
 		public class MarkerObject
@@ -162,11 +163,11 @@ namespace PaperPlaneTools.AR {
 
 			//Create objects for markers not matched with any game object
 			foreach (int markerIndex in foundedMarkers) {                
-				GameObject gameObject = Instantiate(markerObject.markerPrefab);
-				gameObject.transform.parent = cameraPlayer.transform;
-				gameObject.transform.position = Vector3.zero;
+				objeto = Instantiate(markerObject.markerPrefab);
+				objeto.transform.parent = cameraPlayer.transform;
+				objeto.transform.position = Vector3.zero;
 				MarkerOnScene markerOnScene = new MarkerOnScene() {
-					gameObject = gameObject
+					gameObject = objeto
 				};
 				gameObjects.Add(markerOnScene);
 
@@ -196,5 +197,11 @@ namespace PaperPlaneTools.AR {
             //gameObject.transform.position = new Vector3((posObject.transform.position.x + MatrixHelper.GetPosition(matrix).x) - 0.055f, (posObject.transform.position.y + MatrixHelper.GetPosition(matrix).y) - 0.4f, posObject.transform.position.z); //+ MatrixHelper.GetPosition (matrix);
 			gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
 		}
+
+        public void destroyObject()
+        {
+            Destroy(objeto);
+
+        }
 	}
 }
