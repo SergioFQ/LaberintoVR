@@ -15,6 +15,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private EquationController EquController;
     [SerializeField] private ControladorFade FadeController;
     [SerializeField] private AudioClip _boton_Clip;
+    [SerializeField] private DoorController doorCont;
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
@@ -136,6 +137,22 @@ public class vrSelection : MonoBehaviour
                         break;
                     case "Libro":
                         pauseMenu.pauseGame();
+                        gvrOff();
+                        break;
+                    case "LeftDoor":
+                        doorCont.awakeDoor(0);
+                        gvrOff();
+                        break;
+                    case "CenterDoor":
+                        doorCont.awakeDoor(1);
+                        gvrOff();
+                        break;
+                    case "RightDoor":
+                        doorCont.awakeDoor(2);
+                        gvrOff();
+                        break;
+                    case "MainMenuButton":
+                        FadeController.toScene("MainMenu");
                         gvrOff();
                         break;
 
