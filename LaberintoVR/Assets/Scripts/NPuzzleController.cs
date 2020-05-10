@@ -10,11 +10,13 @@ public class NPuzzleController : MonoBehaviour
 
     public Text texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9;
     public Material doneMaterial;
-    public AudioSource Audio_MoverPieza;
+    public AudioSource _MoverPiezaAudio;
+    public AudioClip _pruebaSuperada;
     private int[,] nPuzzle, nPuzzleGenerado;
     private GameObject[,] piezas;
     private Text[,] textos;
     private bool completo = false;
+    
 
     void Start()
     {
@@ -98,6 +100,8 @@ public class NPuzzleController : MonoBehaviour
             //Comprobar si es completo
             if (esCompleto()) {
                 completo = true;
+                _MoverPiezaAudio.clip = _pruebaSuperada;
+                _MoverPiezaAudio.Play();
                 foreach (GameObject g in piezas) {
                     g.tag = "Untagged";
                     g.GetComponent<Renderer>().material = doneMaterial;
@@ -191,7 +195,8 @@ public class NPuzzleController : MonoBehaviour
 
     public void moverPieza(float inX, float inY, bool directo) {
         //------------------------//
-        this.GetComponent<AudioSource>().Play();
+        _MoverPiezaAudio.pitch = (Random.Range(0.8f, .9f));
+        _MoverPiezaAudio.Play();
         //------------------------//
         int x = -1, y = -1;
         if (directo) {
@@ -248,6 +253,8 @@ public class NPuzzleController : MonoBehaviour
     }
 
     public void resetear() {
+        _MoverPiezaAudio.pitch = (Random.Range(0.8f, .9f));
+        _MoverPiezaAudio.Play();
         nPuzzle = (int[,])nPuzzleGenerado.Clone();
     }
 

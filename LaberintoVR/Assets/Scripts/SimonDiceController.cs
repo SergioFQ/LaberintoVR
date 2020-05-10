@@ -11,6 +11,14 @@ public class SimonDiceController : MonoBehaviour
     private bool secuenciaFallada = false;
     private int numeroPrueba = 0;
 
+    [SerializeField] private AudioSource _AudioSource_SimonDice;
+    [SerializeField] private AudioClip _pruebaSuperada;
+    [SerializeField] private AudioClip _SecuenciaSuperada;
+    [SerializeField] private AudioSource _RojoSimon;
+    [SerializeField] private AudioSource _AmarilloSimon;
+    [SerializeField] private AudioSource _AzulSimon;
+    [SerializeField] private AudioSource _VerdeSimon;
+    [SerializeField] private AudioClip _wrongSimon;
     public bool secuenciaActiva = false;
     public bool esperandoInput = false;
 
@@ -31,11 +39,15 @@ public class SimonDiceController : MonoBehaviour
                         setTexto("Mensaje_Secuencia", "");
                         setTexto("Nivel", "¡Prueba Superada!");
                         GameObject.Find("StartSimonDice").tag = "Untagged";
+                        _AudioSource_SimonDice.clip = _pruebaSuperada;
+                        _AudioSource_SimonDice.Play();
                     }
                     else
                     {
                         setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
                         setTexto("Mensaje_Secuencia", "¡Secuencia correcta!");
+                        _AudioSource_SimonDice.clip = _SecuenciaSuperada;
+                        _AudioSource_SimonDice.Play();
                     }
                         
                 }
@@ -44,6 +56,8 @@ public class SimonDiceController : MonoBehaviour
                     numeroPrueba = 0;
                     setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
                     setTexto("Mensaje_Secuencia", "¡Secuencia incorrecta!");
+                    _AudioSource_SimonDice.clip = _wrongSimon;
+                    _AudioSource_SimonDice.Play();
                 }
 
             }
@@ -57,6 +71,8 @@ public class SimonDiceController : MonoBehaviour
                     numeroPrueba = 0;
                     setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
                     setTexto("Mensaje_Secuencia","¡Secuencia incorrecta!");
+                    _AudioSource_SimonDice.clip = _wrongSimon;
+                    _AudioSource_SimonDice.Play();
                 }
             }
         }
@@ -87,6 +103,22 @@ public class SimonDiceController : MonoBehaviour
 
     public void cambiarColor(string nombre)
     {
+        switch (nombre)
+        {
+            case "CuboAmarillo":
+                _AmarilloSimon.Play();
+                break;
+            case "CuboAzul":
+                _AzulSimon.Play();
+                break;
+            case "CuboVerde":
+                _VerdeSimon.Play();
+                break;
+            case "CuboRojo":
+                _RojoSimon.Play();
+                break;
+        }
+
         GameObject cubo = GameObject.Find(nombre);
         Color color = cubo.transform.GetComponent<Renderer>().material.color;
         cubo.transform.GetComponent<Renderer>().material.color = color;
