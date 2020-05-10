@@ -15,7 +15,7 @@ public class NPuzzleController : MonoBehaviour
     private int[,] nPuzzle, nPuzzleGenerado;
     private GameObject[,] piezas;
     private Text[,] textos;
-    private bool completo = false;
+    public bool completo = false;
     private bool sonidos = false;
 
     void Start()
