@@ -7,6 +7,7 @@ public class Pause : MonoBehaviour
     public GameObject posMenu;
     public GameObject sala;
     public GameObject player;
+    public GameObject MainAruco;
 
     private Vector3 prePlayerPos;
     // Start is called before the first frame update
@@ -18,7 +19,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        /*
         if (Input.GetKeyUp("up")) {
             prePlayerPos = player.transform.position;
             player.transform.position = new Vector3(posMenu.transform.position.x, posMenu.transform.position.y, posMenu.transform.position.z);
@@ -37,6 +38,15 @@ public class Pause : MonoBehaviour
 
         player.transform.position = prePlayerPos;
         sala.SetActive(false);
+        MainAruco.SetActive(true);
+    }
+
+    public void pauseGame()
+    {
+        prePlayerPos = player.transform.position;
+        player.transform.position = new Vector3(posMenu.transform.position.x, posMenu.transform.position.y, posMenu.transform.position.z);
+        sala.SetActive(true);
+        MainAruco.SetActive(false);
     }
 
 }
