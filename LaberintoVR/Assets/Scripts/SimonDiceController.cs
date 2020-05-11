@@ -19,9 +19,26 @@ public class SimonDiceController : MonoBehaviour
     [SerializeField] private AudioSource _AzulSimon;
     [SerializeField] private AudioSource _VerdeSimon;
     [SerializeField] private AudioClip _wrongSimon;
+    [SerializeField] private GameObject startButton;
     public bool secuenciaActiva = false;
     public bool esperandoInput = false;
     public bool win = false;
+    public bool active = false;
+    [SerializeField] private Light lampara;
+
+    public void switchLampara(bool act)
+    {
+        if (act)
+        {
+            lampara.intensity = 1;
+            Debug.Log("Encendido");
+        }
+        else
+        {
+            lampara.intensity = 0;
+            Debug.Log("Apagado");
+        }
+    }
 
     private void Update()
     {
@@ -79,6 +96,11 @@ public class SimonDiceController : MonoBehaviour
         }
     }
 
+    public void setActive(bool act)
+    {
+        active = act;
+    }
+
     private void setTexto(string nombre, string texto)
     {
         GameObject.Find(nombre).GetComponent<Text>().text = texto;
@@ -128,31 +150,31 @@ public class SimonDiceController : MonoBehaviour
 
     public void iniciarSimonDice()
     {
-        if (numeroPrueba == 0)
-        {
-            setTexto("Nivel", ("Secuencias superadas: " + numeroPrueba.ToString() + "/3"));
-        }
-        if (numeroPrueba < 3)
-        {
-            setTexto("Mensaje_Secuencia", "Nivel "+(numeroPrueba+1).ToString());
-            secuenciaFallada = false;
-            GameObject.Find("StartSimonDice").tag = "Untagged";
-            cambiarTagsCubos("CuboSimonDice");
-            secuenciaActiva = true;
-            secuenciaInput.Clear();
-            secuenciaCreada.Clear();
-            for (int i = 0; i < 5; i++)
-                secuenciaCreada.Add(Random.Range(0, 4));
+            if (numeroPrueba == 0)
+            {
+                setTexto("Nivel", ("Secuencias superadas: " + numeroPrueba.ToString() + "/3"));
+            }
+            if (numeroPrueba < 3)
+            {
+                setTexto("Mensaje_Secuencia", "Nivel " + (numeroPrueba + 1).ToString());
+                secuenciaFallada = false;
+                GameObject.Find("StartSimonDice").tag = "Untagged";
+                cambiarTagsCubos("CuboSimonDice");
+                secuenciaActiva = true;
+                secuenciaInput.Clear();
+                secuenciaCreada.Clear();
+                for (int i = 0; i < 5; i++)
+                    secuenciaCreada.Add(Random.Range(0, 4));
 
-            StartCoroutine(empezarSecuencia());
-        }
-        else
-        {
-            setTexto("Mensaje_Secuencia", "");
-            setTexto("Nivel", "¡Prueba Superada!");
-            win = true;
-        }
-
+                StartCoroutine(empezarSecuencia());
+            }
+            else
+            {
+                setTexto("Mensaje_Secuencia", "");
+                setTexto("Nivel", "¡Prueba Superada!");
+                win = true;
+            }
+        
     }
 
     private void cambiarTagsCubos(string tag)

@@ -14,10 +14,12 @@ public class EquationController : MonoBehaviour
     public GameObject bulb;
     public TextMesh displayCodeTextMesh;
     public AudioSource audioSource;
-    public AudioClip click, victoria, derrota;
+    public AudioClip victoria, derrota;
     public GameObject b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bc;
     private Vector3Int values;
     private int value1, value2, value3, finalValue;
+    public bool active = false;
+    [SerializeField] private Light lampara;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +34,22 @@ public class EquationController : MonoBehaviour
         Debug.Log("X = " + value1 + ", Y = " + value2 + ", Z = " + value3);
     }
 
+    public void switchLampara(bool act)
+    {
+        if (act)
+        {
+            lampara.intensity = 1;
+            Debug.Log("Encendido");
+        }
+        else
+        {
+            lampara.intensity = 0;
+            Debug.Log("Apagado");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-
         if (totalDigits > 2) {
             audioSource.clip = derrota;
             audioSource.Play();
@@ -81,8 +95,6 @@ public class EquationController : MonoBehaviour
     }
 
     public void selectNum(string num) {
-        audioSource.clip = click;
-        audioSource.Play();
         playerCode += num;
         totalDigits++;
     }

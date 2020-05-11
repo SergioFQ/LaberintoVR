@@ -16,6 +16,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private ControladorFade FadeController;
     [SerializeField] private AudioClip _boton_Clip;
     [SerializeField] private DoorController doorCont;
+    [SerializeField] private Light linterna;
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
@@ -28,23 +29,32 @@ public class vrSelection : MonoBehaviour
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && (_hit.transform.tag != "Untagged") && !SDController.secuenciaActiva)
+        if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && !SDController.secuenciaActiva)
         {
             //Debug.Log(_hit.transform.name);
             UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
             tagActual = _hit.transform.tag;
-            if (tagAnterior != tagActual)
+            if (_hit.transform.tag != "Untagged")
             {
-                gvrTimer = 0;
-                imgGaze.fillAmount = 0;
+                if (tagAnterior != tagActual)
+                {
+                    gvrTimer = 0;
+                    imgGaze.fillAmount = 0;
+                }
+                if (!gvrStatus)
+                    gvrOn();
+                if (gvrStatus)
+                {
+                    gvrTimer += Time.deltaTime;
+                    imgGaze.fillAmount = gvrTimer / totalTime;
+                }
             }
-            if (!gvrStatus)
-                gvrOn();
-            if (gvrStatus)
+            else
             {
-                gvrTimer += Time.deltaTime;
-                imgGaze.fillAmount = gvrTimer / totalTime;
+                gvrOff();
+                tagAnterior = "";
             }
+                
             if (imgGaze.fillAmount == 1 && Physics.Raycast(ray, out _hit, distanceOfRay))
             {
                 switch (_hit.transform.tag)
@@ -53,9 +63,25 @@ public class vrSelection : MonoBehaviour
                         teleport(_hit.point);
                         imgGaze.fillAmount = 0;
                         gvrTimer = 0;
+                        if (SDController.active) { SDController.active = false; SDController.switchLampara(false); }
+                        if (NPController.active) { NPController.active = false; NPController.switchLampara(false);  }
+                        if (EquController.active) { EquController.active = false; EquController.switchLampara(false);  }
+                        if (linterna.intensity == 0) { linterna.intensity = 1; }
                         break;
                     case "SimonDice":
                         teleport(_hit.transform.position);
+                        if (!SDController.active) { SDController.active = true; SDController.switchLampara(true); }
+                        if (linterna.intensity != 0) { linterna.intensity = 0; }
+                        break;
+                    case "Equ":
+                        teleport(_hit.transform.position);
+                        if (!EquController.active) { EquController.active = true; EquController.switchLampara(true);}
+                        if (linterna.intensity != 0) { linterna.intensity = 0; }
+                        break;
+                    case "NPzz":
+                        teleport(_hit.transform.position);
+                        if (!NPController.active) { NPController.active = true; NPController.switchLampara(true);  }
+                        if (linterna.intensity != 0) { linterna.intensity = 0; }
                         break;
                     case "CuboSimonDice":
                         if (SDController.esperandoInput)
@@ -66,7 +92,6 @@ public class vrSelection : MonoBehaviour
                         SDController.iniciarSimonDice();
                         gvrOff();
                         break;
-
                     case "ResetNPuzzle":
                         if (!NPController.juegoTerminado())
                         {
@@ -82,15 +107,16 @@ public class vrSelection : MonoBehaviour
                             NPController.moverPieza(_hit.transform.localPosition.x, _hit.transform.localPosition.y, false);
                         }
                         break;
-
                     case "equation":
                         if (!EquController.equationSolved)
                         {
+                            _hit.transform.GetComponent<AudioSource>().Play();
                             EquController.selectNum(_hit.transform.name);
                             gvrOff();
                         }
                         break;
                     case "selectEquation":
+                        _hit.transform.GetComponent<AudioSource>().Play();
                         EquController.selectEquation();
                         gvrOff();
                         break;
@@ -166,9 +192,9 @@ public class vrSelection : MonoBehaviour
         }
         else
         {
-            UI.planeDistance = distanceOfRay;
             gvrOff();
             tagAnterior = "";
+            UI.planeDistance = distanceOfRay;
         }
 
     }

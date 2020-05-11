@@ -17,6 +17,22 @@ public class NPuzzleController : MonoBehaviour
     private Text[,] textos;
     public bool completo = false;
     private bool sonidos = false;
+    public bool active = false;
+    [SerializeField] private Light lampara;
+
+    public void switchLampara(bool act)
+    {
+        if (act)
+        {
+            lampara.intensity = 1;
+            Debug.Log("Encendido");
+        }
+        else
+        {
+            lampara.intensity = 0;
+            Debug.Log("Apagado");
+        }
+    }
 
     void Start()
     {
