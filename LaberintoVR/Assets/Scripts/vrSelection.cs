@@ -17,6 +17,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private AudioClip _boton_Clip;
     [SerializeField] private DoorController doorCont;
     [SerializeField] private Light linterna;
+    [SerializeField] private GameObject cubo;
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
@@ -31,6 +32,7 @@ public class vrSelection : MonoBehaviour
 
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && !SDController.secuenciaActiva)
         {
+            cubo.transform.position = _hit.point;
             //Debug.Log(_hit.transform.name);
             UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
             tagActual = _hit.transform.tag;
