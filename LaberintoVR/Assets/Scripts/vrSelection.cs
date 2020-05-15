@@ -18,6 +18,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private DoorController doorCont;
     [SerializeField] private Light linterna;
     [SerializeField] private GameObject cubo;
+    [SerializeField] private GameObject initPos;
 
     private RaycastHit _hit;
     private bool gvrStatus = false;
@@ -161,9 +162,12 @@ public class vrSelection : MonoBehaviour
                     case "ButtonBegin":
                         _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
                         _hit.transform.GetComponent<AudioSource>().Play();
+                        /*
                         Debug.Log("Empezar");
                         //SceneManager.LoadScene("mapScene");
                         FadeController.toScene("mapScene");
+                        */
+                        this.transform.position = initPos.transform.position;
                         gvrOff();
                         break;
                     case "Libro":
@@ -203,7 +207,7 @@ public class vrSelection : MonoBehaviour
 
     private void teleport(Vector3 position)
     {
-        transform.position = new Vector3(position.x, 1.7f, position.z);
+        transform.position = new Vector3(position.x, this.transform.position.y, position.z);
     }
 
     public void gvrOn()
