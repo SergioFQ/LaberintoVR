@@ -190,6 +190,10 @@ public class vrSelection : MonoBehaviour
                         FadeController.toScene("MainMenu");
                         gvrOff();
                         break;
+                    case "ButtonWeb":
+                        Application.OpenURL("https://www.google.com/");
+                        gvrOff();
+                        break;
 
                 }
             }
