@@ -185,9 +185,7 @@ namespace PaperPlaneTools.AR {
             //gameObject.transform.localPosition = MatrixHelper.GetPosition (matrix);
             //gameObject.transform.localRotation = MatrixHelper.GetQuaternion (matrix);
             //gameObject.transform.localScale = MatrixHelper.GetScale (matrix);
-
-            //escalamos debido a que el modelo es excesivamente grande
-            gameObject.transform.localScale = new Vector3 (0.0005f,0.0005f,0.0005f);
+            
             //Mita a camra
             gameObject.transform.LookAt(cameraPlayer.transform);
             //Rotamos para que este recto del todo
