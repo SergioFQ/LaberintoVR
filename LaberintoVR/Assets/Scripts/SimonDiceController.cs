@@ -59,6 +59,7 @@ public class SimonDiceController : MonoBehaviour
                         GameObject.Find("StartSimonDice").tag = "Untagged";
                         _AudioSource_SimonDice.clip = _pruebaSuperada;
                         _AudioSource_SimonDice.Play();
+                        win = true;
                     }
                     else
                     {
