@@ -76,7 +76,6 @@ public class EquationController : MonoBehaviour
             b8.tag = "Untagged";
             b9.tag = "Untagged";
             bc.tag = "Untagged";
-            Debug.Log("gg");
             equationSolved = true;
             changeColor();
         }
