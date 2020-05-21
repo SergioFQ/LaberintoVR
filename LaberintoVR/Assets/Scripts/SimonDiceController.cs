@@ -55,7 +55,7 @@ public class SimonDiceController : MonoBehaviour
                     if (numeroPrueba >= 3)
                     {
                         setTexto("Mensaje_Secuencia", "");
-                        setTexto("Nivel", "¡Prueba Superada!");
+                        setTexto("Nivel", "Trial Succed!");
                         GameObject.Find("StartSimonDice").tag = "Untagged";
                         _AudioSource_SimonDice.clip = _pruebaSuperada;
                         _AudioSource_SimonDice.Play();
@@ -63,8 +63,8 @@ public class SimonDiceController : MonoBehaviour
                     }
                     else
                     {
-                        setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
-                        setTexto("Mensaje_Secuencia", "¡Secuencia correcta!");
+                        setTexto("Nivel", "Sequences completed: " + numeroPrueba.ToString() + "/3");
+                        setTexto("Mensaje_Secuencia", "Correct sequence!");
                         _AudioSource_SimonDice.clip = _SecuenciaSuperada;
                         _AudioSource_SimonDice.Play();
                     }
@@ -74,7 +74,7 @@ public class SimonDiceController : MonoBehaviour
                 {
                     numeroPrueba = 0;
                     setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
-                    setTexto("Mensaje_Secuencia", "¡Secuencia incorrecta!");
+                    setTexto("Mensaje_Secuencia", "Incorrect sequence!");
                     _AudioSource_SimonDice.clip = _wrongSimon;
                     _AudioSource_SimonDice.Play();
                 }
@@ -88,8 +88,8 @@ public class SimonDiceController : MonoBehaviour
                     cambiarTagsCubos("Untagged");
                     GameObject.Find("StartSimonDice").tag = "StartSimonDice";
                     numeroPrueba = 0;
-                    setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
-                    setTexto("Mensaje_Secuencia","¡Secuencia incorrecta!");
+                    setTexto("Nivel", "Sequences completed: " + numeroPrueba.ToString() + "/3");
+                    setTexto("Mensaje_Secuencia","Incorrect sequence!");
                     _AudioSource_SimonDice.clip = _wrongSimon;
                     _AudioSource_SimonDice.Play();
                 }
@@ -153,11 +153,11 @@ public class SimonDiceController : MonoBehaviour
     {
             if (numeroPrueba == 0)
             {
-                setTexto("Nivel", ("Secuencias superadas: " + numeroPrueba.ToString() + "/3"));
+                setTexto("Nivel", ("Sequences completed: " + numeroPrueba.ToString() + "/3"));
             }
             if (numeroPrueba < 3)
             {
-                setTexto("Mensaje_Secuencia", "Nivel " + (numeroPrueba + 1).ToString());
+                setTexto("Mensaje_Secuencia", "Level " + (numeroPrueba + 1).ToString());
                 secuenciaFallada = false;
                 GameObject.Find("StartSimonDice").tag = "Untagged";
                 cambiarTagsCubos("CuboSimonDice");
@@ -172,7 +172,7 @@ public class SimonDiceController : MonoBehaviour
             else
             {
                 setTexto("Mensaje_Secuencia", "");
-                setTexto("Nivel", "¡Prueba Superada!");
+                setTexto("Nivel", "Trial succed!");
                 win = true;
             }
         
