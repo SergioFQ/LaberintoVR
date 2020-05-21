@@ -167,7 +167,8 @@ public class vrSelection : MonoBehaviour
                         //SceneManager.LoadScene("mapScene");
                         FadeController.toScene("mapScene");
                         */
-                        this.transform.position = initPos.transform.position;
+                        //this.transform.position = initPos.transform.position;
+                        FadeController.tpPlayer("ButtonBegin", this, initPos);
                         gvrOff();
                         break;
                     case "Libro":
