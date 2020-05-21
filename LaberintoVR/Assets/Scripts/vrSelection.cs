@@ -19,7 +19,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private Light linterna;
     [SerializeField] private GameObject cubo;
     [SerializeField] private GameObject initPos;
-
+    [SerializeField] private GameObject arucoScript;
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
@@ -27,6 +27,12 @@ public class vrSelection : MonoBehaviour
     private string tagActual = "";
 
     public Pause pauseMenu;
+
+    private void Start()
+    {
+        arucoScript.SetActive(false);   
+    }
+
     void Update()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -162,6 +168,7 @@ public class vrSelection : MonoBehaviour
                     case "ButtonBegin":
                         _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
                         _hit.transform.GetComponent<AudioSource>().Play();
+                        arucoScript.SetActive(true);
                         /*
                         Debug.Log("Empezar");
                         //SceneManager.LoadScene("mapScene");
