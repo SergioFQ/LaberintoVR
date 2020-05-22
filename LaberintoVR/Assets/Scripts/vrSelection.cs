@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+
 public class vrSelection : MonoBehaviour
 {
     [SerializeField] private Image imgGaze;
@@ -21,9 +23,12 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private GameObject initPos;
     [SerializeField] private GameObject arucoScript;
     [SerializeField] private AudioSource ButtonBeginSound;
+    [SerializeField] private AudioMixer audioController;
+
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
+    private bool volume = true;
     private string tagAnterior = "";
     private string tagActual = "";
 
@@ -31,7 +36,8 @@ public class vrSelection : MonoBehaviour
 
     private void Start()
     {
-        arucoScript.SetActive(false);   
+        arucoScript.SetActive(false);
+        audioController.SetFloat("MyExposedParam", 0);
     }
 
     void Update()
@@ -147,10 +153,17 @@ public class vrSelection : MonoBehaviour
                         break;
                     case "ButtonVolume":
                         _hit.transform.GetComponent<AudioReference>().play();
-                        if (AudioListener.volume != 0)
-                            AudioListener.volume = 0;
+                        if (volume)
+                        {
+                            audioController.SetFloat("MyExposedParam", -80);
+                            volume = false;
+                        }
+                            
                         else
-                            AudioListener.volume = 1;
+                        {
+                            audioController.SetFloat("MyExposedParam", 0);
+                            volume = true;
+                        }
                         Debug.Log("Volumen");
                         gvrOff();
                         break;
