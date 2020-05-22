@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class ArreglarAudio : MonoBehaviour
 {
-    private int count = 0;
-    private AudioSource audio;
-    private void Start()
-    {
-        audio = this.GetComponent<AudioSource>();
-    }
+    [SerializeField] private AudioSource audio;
+    private bool _needsToReset;
+
     void Update()
     {
-        if (count < 11)
+        if (audio.isPlaying)
         {
-            count++;
+            _needsToReset = true;
         }
-        if (count == 10)
+        else
         {
-            audio.bypassEffects = false;
-            audio.bypassEffects = true;
+            if (_needsToReset)
+            {
+                gameObject.SetActive(false);
+                _needsToReset = false;
+            }
         }
     }
 }
