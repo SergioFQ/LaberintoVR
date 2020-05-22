@@ -58,6 +58,7 @@ public class SimonDiceController : MonoBehaviour
                         setTexto("Mensaje_Secuencia", "");
                         setTexto("Nivel", "Trial Succed!");
                         GameObject.Find("StartSimonDice").tag = "Untagged";
+                        _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _pruebaSuperada;
                         _AudioSource_SimonDice.SetActive(true);
                         win = true;
                     }
@@ -65,6 +66,7 @@ public class SimonDiceController : MonoBehaviour
                     {
                         setTexto("Nivel", "Sequences completed: " + numeroPrueba.ToString() + "/3");
                         setTexto("Mensaje_Secuencia", "Correct sequence!");
+                        _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _SecuenciaSuperada;
                         _AudioSource_SimonDice.SetActive(true);
                     }
                         
@@ -74,6 +76,7 @@ public class SimonDiceController : MonoBehaviour
                     numeroPrueba = 0;
                     setTexto("Nivel", "Secuencias superadas: " + numeroPrueba.ToString() + "/3");
                     setTexto("Mensaje_Secuencia", "Incorrect sequence!");
+                    _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _SecuenciaSuperada;
                     _AudioSource_SimonDice.SetActive(true);
                 }
 
@@ -88,6 +91,7 @@ public class SimonDiceController : MonoBehaviour
                     numeroPrueba = 0;
                     setTexto("Nivel", "Sequences completed: " + numeroPrueba.ToString() + "/3");
                     setTexto("Mensaje_Secuencia","Incorrect sequence!");
+                    _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _wrongSimon;
                     _AudioSource_SimonDice.SetActive(true);
                 }
             }
