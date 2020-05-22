@@ -12,6 +12,7 @@ public class NPuzzleController : MonoBehaviour
     public TextMeshPro texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9;
     public Material doneMaterial;
     public GameObject _MoverPiezaAudio;
+    public GameObject _GanarAudio;
     public AudioClip _pruebaSuperada;
     private int[,] nPuzzle, nPuzzleGenerado;
     private GameObject[,] piezas;
@@ -118,8 +119,7 @@ public class NPuzzleController : MonoBehaviour
             //Comprobar si es completo
             if (esCompleto()) {
                 completo = true;
-                _MoverPiezaAudio.GetComponent<AudioSource>().clip = _pruebaSuperada;
-                if (sonidos) _MoverPiezaAudio.SetActive(true);
+                _GanarAudio.SetActive(true);
                 foreach (GameObject g in piezas) {
                     g.tag = "Untagged";
                     g.GetComponent<Renderer>().material = doneMaterial;
