@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NPuzzleController : MonoBehaviour
 {
 
     public GameObject pieza1, pieza2, pieza3, pieza4, pieza5, pieza6, pieza7, pieza8, pieza9, piezaReset;
 
-    public Text texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9;
+    public TextMeshPro texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9;
     public Material doneMaterial;
     public GameObject _MoverPiezaAudio;
     public AudioClip _pruebaSuperada;
     private int[,] nPuzzle, nPuzzleGenerado;
     private GameObject[,] piezas;
-    private Text[,] textos;
+    private TextMeshPro[,] textos;
     public bool completo = false;
     private bool sonidos = false;
     public bool active = false;
@@ -38,7 +39,7 @@ public class NPuzzleController : MonoBehaviour
     {
         //inicializar las piezas
         piezas = new GameObject[3, 3];
-        textos = new Text[3,3];
+        textos = new TextMeshPro[3,3];
 
         piezas[0,0] = pieza1;
         piezas[1,0] = pieza2;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class SimonDiceController : MonoBehaviour
 {
     private IEnumerator coroutine;
@@ -100,7 +101,7 @@ public class SimonDiceController : MonoBehaviour
 
     private void setTexto(string nombre, string texto)
     {
-        GameObject.Find(nombre).GetComponent<Text>().text = texto;
+        GameObject.Find(nombre).GetComponent<TextMeshPro>().text = texto;
     }
 
     public void añadirASecuencia(string nombre)
