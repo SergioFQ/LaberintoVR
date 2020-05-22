@@ -9,12 +9,12 @@ namespace PaperPlaneTools.AR {
 	using UnityEngine.UI;
 	
 	public class MainScript: WebCamera {
-        //CODIGO SERGIO
+        
         //public GameObject posObject;
         public GameObject cameraPlayer;
         private GameObject objeto;
         public float dist;//cuanto queremos que se acerque el objeto (no excederse con los valores)
-        //CODIGO SERGIO
+        
 		[Serializable]
 		public class MarkerObject
 		{
