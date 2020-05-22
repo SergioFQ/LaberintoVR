@@ -211,7 +211,7 @@ public class vrSelection : MonoBehaviour
                         gvrOff();
                         break;
                     case "ButtonWeb":
-                        Application.OpenURL("https://www.google.com/");
+                        Application.OpenURL("https://drive.google.com/file/d/1GYmlrlZpFfpEkz7LF_XCX2vTRZwoQU34/view?usp=sharing");
                         gvrOff();
                         break;
 
