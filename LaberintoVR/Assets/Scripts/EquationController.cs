@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EquationController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class EquationController : MonoBehaviour
     public static string playerCode = "";
     public int totalDigits = 0;
     public bool equationSolved = false;
-    public Text text;
+    public TextMeshPro text;
     public GameObject bulb;
     public TextMesh displayCodeTextMesh;
     public GameObject panel;
