@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class SimonDiceController : MonoBehaviour
 {
     private IEnumerator coroutine;
@@ -20,12 +21,20 @@ public class SimonDiceController : MonoBehaviour
     [SerializeField] private GameObject _AzulSimon;
     [SerializeField] private GameObject _VerdeSimon;
     [SerializeField] private AudioClip _wrongSimon;
-    [SerializeField] private GameObject startButton;
+    [SerializeField] private Renderer startButton;
+    [SerializeField] private TextMeshPro _cuenta_atras;
+
+    Color color;
     public bool secuenciaActiva = false;
     public bool esperandoInput = false;
     public bool win = false;
     public bool active = false;
     [SerializeField] private Light lampara;
+
+    public void Start()
+    {
+        color = startButton.material.color;
+    }
 
     public void switchLampara(bool act)
     {
@@ -49,6 +58,7 @@ public class SimonDiceController : MonoBehaviour
             {
                 esperandoInput = false;
                 cambiarTagsCubos("Untagged");
+                _cuenta_atras.text = "";
                 GameObject.Find("StartSimonDice").tag = "StartSimonDice";
                 if (!secuenciaFallada)
                 {
@@ -60,6 +70,8 @@ public class SimonDiceController : MonoBehaviour
                         GameObject.Find("StartSimonDice").tag = "Untagged";
                         _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _pruebaSuperada;
                         _AudioSource_SimonDice.SetActive(true);
+                        color.a = 0.3f;
+                        startButton.material.color = color;
                         win = true;
                     }
                     else
@@ -68,6 +80,8 @@ public class SimonDiceController : MonoBehaviour
                         setTexto("Mensaje_Secuencia", "Correct sequence!");
                         _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _SecuenciaSuperada;
                         _AudioSource_SimonDice.SetActive(true);
+                        color.a = 1f;
+                        startButton.material.color = color;
                     }
                         
                 }
@@ -78,6 +92,8 @@ public class SimonDiceController : MonoBehaviour
                     setTexto("Mensaje_Secuencia", "Incorrect sequence!");
                     _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _SecuenciaSuperada;
                     _AudioSource_SimonDice.SetActive(true);
+                    color.a = 1f;
+                    startButton.material.color = color;
                 }
 
             }
@@ -85,6 +101,7 @@ public class SimonDiceController : MonoBehaviour
             {
                 if (secuenciaFallada)
                 {
+                    _cuenta_atras.text = "";
                     esperandoInput = false;
                     cambiarTagsCubos("Untagged");
                     GameObject.Find("StartSimonDice").tag = "StartSimonDice";
@@ -93,9 +110,12 @@ public class SimonDiceController : MonoBehaviour
                     setTexto("Mensaje_Secuencia","Incorrect sequence!");
                     _AudioSource_SimonDice.GetComponent<AudioSource>().clip = _wrongSimon;
                     _AudioSource_SimonDice.SetActive(true);
+                    color.a = 1f;
+                    startButton.material.color = color;
                 }
             }
         }
+        
     }
 
     public void setActive(bool act)
@@ -152,7 +172,9 @@ public class SimonDiceController : MonoBehaviour
 
     public void iniciarSimonDice()
     {
-            if (numeroPrueba == 0)
+        color.a= 0.3f;
+        startButton.material.color = color;
+        if (numeroPrueba == 0)
             {
                 setTexto("Nivel", ("Sequences completed: " + numeroPrueba.ToString() + "/3"));
             }
@@ -173,7 +195,7 @@ public class SimonDiceController : MonoBehaviour
             else
             {
                 setTexto("Mensaje_Secuencia", "");
-                setTexto("Nivel", "Trial success!");
+                setTexto("Nivel", "Trial succed!");
                 win = true;
             }
         
@@ -189,7 +211,16 @@ public class SimonDiceController : MonoBehaviour
 
     private IEnumerator empezarSecuencia()
     {
-        yield return new WaitForSeconds(2.0f);
+        _cuenta_atras.text = "3";
+        yield return new WaitForSeconds(1.0f);
+        _cuenta_atras.text = "2";
+        yield return new WaitForSeconds(1.0f);
+        _cuenta_atras.text = "1";
+        yield return new WaitForSeconds(1.0f);
+        _cuenta_atras.text = "Go!";
+        yield return new WaitForSeconds(1.0f);
+        _cuenta_atras.text = "";
+
         for (int i = 0; i < secuenciaCreada.Count; i++)
         {
             string color = colores[secuenciaCreada[i]];
@@ -198,6 +229,7 @@ public class SimonDiceController : MonoBehaviour
         }
         secuenciaActiva = false;
         esperandoInput = true;
+        _cuenta_atras.text = "Waiting";
     }
 
     private IEnumerator iluminar(Color color, GameObject cubo, float time)
