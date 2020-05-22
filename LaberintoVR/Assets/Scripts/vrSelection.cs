@@ -20,6 +20,7 @@ public class vrSelection : MonoBehaviour
     [SerializeField] private GameObject cubo;
     [SerializeField] private GameObject initPos;
     [SerializeField] private GameObject arucoScript;
+    [SerializeField] private AudioSource ButtonBeginSound;
     private RaycastHit _hit;
     private bool gvrStatus = false;
     private float gvrTimer = 0.0f;
@@ -166,8 +167,10 @@ public class vrSelection : MonoBehaviour
                         gvrOff();
                         break;
                     case "ButtonBegin":
-                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
-                        _hit.transform.GetComponent<AudioSource>().Play();
+                        //_hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
+                        //_hit.transform.GetComponent<AudioSource>().Play();
+                        ButtonBeginSound.clip = _boton_Clip;
+                        ButtonBeginSound.Play();
                         arucoScript.SetActive(true);
                         /*
                         Debug.Log("Empezar");
