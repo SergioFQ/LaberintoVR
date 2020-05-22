@@ -8,6 +8,7 @@ public class LockedDoorController : MonoBehaviour
     public NPuzzleController npCont;
     public EquationController eqCont;
     public Renderer luzSD, luzNP, luzEQ;
+    public GameObject audio;
     private int tareasCompletadas;
 
     // Start is called before the first frame update
@@ -42,6 +43,7 @@ public class LockedDoorController : MonoBehaviour
         }
 
         if (tareasCompletadas == 3) {
+            audio.SetActive(true);
             Destroy(this.gameObject);
         }
 

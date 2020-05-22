@@ -120,27 +120,25 @@ public class vrSelection : MonoBehaviour
                     case "equation":
                         if (!EquController.equationSolved)
                         {
-                            _hit.transform.GetComponent<AudioSource>().Play();
+                            EquController.playAudio(_hit.transform.name);
                             EquController.selectNum(_hit.transform.name);
                             gvrOff();
                         }
                         break;
                     case "selectEquation":
-                        _hit.transform.GetComponent<AudioSource>().Play();
+                        EquController.playAudio(_hit.transform.name);
                         EquController.selectEquation();
                         gvrOff();
                         break;
 
                     case "ButtonContinue":
                         Debug.Log("Continuar");
-                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
-                        _hit.transform.GetComponent<AudioSource>().Play();
+                        _hit.transform.GetComponent<AudioReference>().play();
                         pauseMenu.resumeGame();
                         gvrOff();
                         break;
                     case "ButtonRestart":
-                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
-                        _hit.transform.GetComponent<AudioSource>().Play();
+                        _hit.transform.GetComponent<AudioReference>().play();
                         Debug.Log("Reiniciar");
                         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                         if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
@@ -148,8 +146,7 @@ public class vrSelection : MonoBehaviour
                         gvrOff();
                         break;
                     case "ButtonVolume":
-                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
-                        _hit.transform.GetComponent<AudioSource>().Play();
+                        _hit.transform.GetComponent<AudioReference>().play();
                         if (AudioListener.volume != 0)
                             AudioListener.volume = 0;
                         else
@@ -158,8 +155,7 @@ public class vrSelection : MonoBehaviour
                         gvrOff();
                         break;
                     case "ButtonExit":
-                        _hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
-                        _hit.transform.GetComponent<AudioSource>().Play();
+                        _hit.transform.GetComponent<AudioReference>().play();
                         Debug.Log("Salir juego");
                         //Application.Quit();
                         if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);

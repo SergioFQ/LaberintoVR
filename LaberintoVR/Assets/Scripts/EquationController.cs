@@ -13,7 +13,18 @@ public class EquationController : MonoBehaviour
     public Text text;
     public GameObject bulb;
     public TextMesh displayCodeTextMesh;
-    public AudioSource audioSource;
+    public GameObject panel;
+    public GameObject a0;
+    public GameObject a1;
+    public GameObject a2;
+    public GameObject a3;
+    public GameObject a4;
+    public GameObject a5;
+    public GameObject a6;
+    public GameObject a7;
+    public GameObject a8;
+    public GameObject a9;
+    public GameObject SelectButton;
     public AudioClip victoria, derrota;
     public GameObject b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bc;
     private Vector3Int values;
@@ -51,20 +62,60 @@ public class EquationController : MonoBehaviour
     void Update()
     {
         if (totalDigits > 2) {
-            audioSource.clip = derrota;
-            audioSource.Play();
+            panel.GetComponent<AudioSource>().clip = derrota;
+            panel.SetActive(true);
             restart();
         }
 
         display();
     }
 
+    public void playAudio(string name)
+    {
+        switch (name)
+        {
+            case "0":
+                a0.SetActive(true);
+                break;
+            case "1":
+                a1.SetActive(true);
+                break;
+            case "2":
+                a2.SetActive(true);
+                break;
+            case "3":
+                a3.SetActive(true);
+                break;
+            case "4":
+                a4.SetActive(true);
+                break;
+            case "5":
+                a5.SetActive(true);
+                break;
+            case "6":
+                a6.SetActive(true);
+                break;
+            case "7":
+                a7.SetActive(true);
+                break;
+            case "8":
+                a8.SetActive(true);
+                break;
+            case "9":
+                a9.SetActive(true);
+                break;
+            case "SelectButton":
+                SelectButton.SetActive(true);
+                break;
+        }
+    }
+
     public void selectEquation()
     {
         if (playerCode == correctCode && equationSolved==false)
         {
-            audioSource.clip = victoria;
-            audioSource.Play();
+            panel.GetComponent<AudioSource>().clip = victoria;
+            panel.SetActive(true);
             b0.tag = "Untagged";
             b1.tag = "Untagged";
             b2.tag = "Untagged";
@@ -80,8 +131,8 @@ public class EquationController : MonoBehaviour
             changeColor();
         }
         else {
-            audioSource.clip = derrota;
-            audioSource.Play();
+            panel.GetComponent<AudioSource>().clip = derrota;
+            panel.SetActive(true);
             restart();
             changeColor();
         }
