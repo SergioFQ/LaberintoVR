@@ -43,7 +43,7 @@ public class EquationController : MonoBehaviour
         finalValue = values.x + values.y + values.z;
         correctCode = ""+finalValue;
         text.text = "   +    +    = "+value1+"\n   +    +    = "+value2+"\n   -           = "+value3+"\n   +    +    = ??";
-        Debug.Log("X = " + value1 + ", Y = " + value2 + ", Z = " + value3);
+        //Debug.Log("X = " + value1 + ", Y = " + value2 + ", Z = " + value3);
     }
 
     public void switchLampara(bool act)
@@ -51,12 +51,12 @@ public class EquationController : MonoBehaviour
         if (act)
         {
             lampara.intensity = 1;
-            Debug.Log("Encendido");
+            //Debug.Log("Encendido");
         }
         else
         {
             lampara.intensity = 0;
-            Debug.Log("Apagado");
+            //Debug.Log("Apagado");
         }
     }
     // Update is called once per frame

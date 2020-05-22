@@ -46,8 +46,6 @@ public class vrSelection : MonoBehaviour
 
         if (Physics.Raycast(ray, out _hit, distanceOfRay) && (_hit.transform.tag != "noTeleport") && !SDController.secuenciaActiva)
         {
-            //cubo.transform.position = _hit.point;
-            //Debug.Log(_hit.transform.name);
             UI.planeDistance = Vector3.Distance(UICamera.transform.position, _hit.point);
             tagActual = _hit.transform.tag;
             if (_hit.transform.tag != "Untagged")
@@ -138,15 +136,12 @@ public class vrSelection : MonoBehaviour
                         break;
 
                     case "ButtonContinue":
-                        Debug.Log("Continuar");
                         _hit.transform.GetComponent<AudioReference>().play();
                         pauseMenu.resumeGame();
                         gvrOff();
                         break;
                     case "ButtonRestart":
                         _hit.transform.GetComponent<AudioReference>().play();
-                        Debug.Log("Reiniciar");
-                        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                         if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
                         FadeController.toScene(SceneManager.GetActiveScene().name);
                         gvrOff();
@@ -164,29 +159,18 @@ public class vrSelection : MonoBehaviour
                             audioController.SetFloat("MyExposedParam", 0);
                             volume = true;
                         }
-                        Debug.Log("Volumen");
                         gvrOff();
                         break;
                     case "ButtonExit":
                         _hit.transform.GetComponent<AudioReference>().play();
-                        Debug.Log("Salir juego");
-                        //Application.Quit();
                         if (pauseMenu != null) Destroy(pauseMenu.MainAruco.gameObject);
                         FadeController.toScene("SALIR");
                         gvrOff();
                         break;
                     case "ButtonBegin":
-                        //_hit.transform.GetComponent<AudioSource>().clip = _boton_Clip;
-                        //_hit.transform.GetComponent<AudioSource>().Play();
                         ButtonBeginSound.clip = _boton_Clip;
                         ButtonBeginSound.Play();
                         arucoScript.SetActive(true);
-                        /*
-                        Debug.Log("Empezar");
-                        //SceneManager.LoadScene("mapScene");
-                        FadeController.toScene("mapScene");
-                        */
-                        //this.transform.position = initPos.transform.position;
                         FadeController.tpPlayer("ButtonBegin", this, initPos);
                         gvrOff();
                         break;

@@ -27,12 +27,12 @@ public class NPuzzleController : MonoBehaviour
         if (act)
         {
             lampara.intensity = 1;
-            Debug.Log("Encendido");
+            //Debug.Log("Encendido");
         }
         else
         {
             lampara.intensity = 0;
-            Debug.Log("Apagado");
+            //Debug.Log("Apagado");
         }
     }
 
@@ -81,13 +81,13 @@ public class NPuzzleController : MonoBehaviour
                         ultimaPieza = nPuzzle[x,y];
                         moverPieza(x,y,true);
                         movimientos++;
-                        Debug.Log("movemos " + ultimaPieza);
+                        //Debug.Log("movemos " + ultimaPieza);
                     }
                 } else {
                         ultimaPieza = nPuzzle[x,y];
                         moverPieza(x,y,true);
                         movimientos++;
-                        Debug.Log("movemos " + ultimaPieza);
+                        //Debug.Log("movemos " + ultimaPieza);
                 }
             }
         }

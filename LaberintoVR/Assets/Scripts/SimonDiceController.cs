@@ -41,12 +41,12 @@ public class SimonDiceController : MonoBehaviour
         if (act)
         {
             lampara.intensity = 1;
-            Debug.Log("Encendido");
+            //Debug.Log("Encendido");
         }
         else
         {
             lampara.intensity = 0;
-            Debug.Log("Apagado");
+            //Debug.Log("Apagado");
         }
     }
 
