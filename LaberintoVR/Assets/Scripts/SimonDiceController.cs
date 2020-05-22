@@ -173,7 +173,7 @@ public class SimonDiceController : MonoBehaviour
             else
             {
                 setTexto("Mensaje_Secuencia", "");
-                setTexto("Nivel", "Trial succed!");
+                setTexto("Nivel", "Trial success!");
                 win = true;
             }
         
